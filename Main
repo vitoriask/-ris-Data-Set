@@ -1,1 +1,62 @@
+#first machine learning exercise
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+sns.set_palette('husl')
+import matplotlib.pyplot as plt
+%matplotlib inline
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+
+url = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv'
+
+col_name = ['sepal-lenght','sepal-width','petal-lenght','petal-width','class']
+
+dataset = pd.read_csv(url, names = col_name)
+
+dataset.shape
+
+dataset.head()
+
+dataset.info()
+
+dataset.describe()
+
+
+dataset['class'].value_counts()
+
+plt.title('Species Count')
+sns.countplot(dataset['class'])
+
+dataset[dataset.duplicated()]
+
+sns.violinplot(y='class', x='sepal-lenght', data=dataset, inner='quartile')
+plt.show()
+sns.violinplot(y='class', x='sepal-width', data=dataset, inner='quartile')
+plt.show()
+sns.violinplot(y='class', x='petal-lenght', data=dataset, inner='quartile')
+plt.show()
+sns.violinplot(y='class', x='petal-width', data=dataset, inner='quartile')
+plt.show()
+
+sns.pairplot(dataset, hue='class', markers='+')
+plt.show()
+
+plt.figure(figsize=(7,5))
+sns.heatmap(dataset.corr(), annot=True, cmap='cubehelix_r')
+plt.show()
+
+plt.figure(figsize=(20,11))
+plt.title('Comparison between the three species based on sapel length and width ')
+sns.scatterplot(dataset['sepal-lenght'], dataset['sepal-width'],hue = dataset['class'], s=50)
 
